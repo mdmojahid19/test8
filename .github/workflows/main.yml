@@ -1,0 +1,18 @@
+# .github/workflows/send-webhook.yml
+name: Send Webhook to Repo B
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send repository_dispatch to Repo B
+        run: |
+          curl -X POST https://api.github.com/repos/mdmojahid20/test8/dispatches \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: token ${{ secrets.PAT_FOR_GIT }}" \
+          -d '{"event_type":"sync-code"}'
